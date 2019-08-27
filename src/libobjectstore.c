@@ -207,7 +207,7 @@ void *os_retrieve(char *name)
         data = (char *) malloc(sizeof(char) * (file_size+1));
         
         size_t letti = rd-(4+ strlen(header)+strlen(size));
-        size_t da_leg= file_size-letti;
+        int da_leg= file_size-letti;
         
         /* devo leggere ancora tutti i byte del file*/
         if(letti == 0)

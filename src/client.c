@@ -39,7 +39,7 @@ void prep_data()
     for(int i=1;i < N_DATI;i++)
     {
         //dimensione percentuale
-        size_t size = i * 54 *block_size;
+        size_t size = i * 53 *block_size;
         
         data[i]=malloc(size*sizeof(char) +1);
         memset(data[i], '\0', size);
