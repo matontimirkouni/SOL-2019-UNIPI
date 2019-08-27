@@ -32,8 +32,10 @@ int os_connect(char *name)
     }
     
     if(strlen(name) > MAX_NAME_LENGHT)
+    {
         print_error("Name is too long");
         return 0;
+    }
     
     //sockaddr_un per binding
     struct sockaddr_un sa;
