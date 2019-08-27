@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -std=c99 -g -pedantic -Wall  -Wmissing-field-initializers -D_POSIX_C_SOURCE=200809L -fsanitize=address -fno-omit-frame-pointer
+CFLAGS = -std=c99 -g -pedantic -Wall  -Wmissing-field-initializers -D_POSIX_C_SOURCE=200809L
 
 all:	server utils libobjectstore client 
 
