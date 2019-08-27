@@ -19,12 +19,24 @@ typedef struct worker {
 worker *workerlist;
 
 
+/*
+     @EFFECTS: Crea il thread worker associato ad un client
+*/
 extern worker* create_worker(int fd);
 
+/*
+     @EFFECTS: Loop del thread worker
+*/
 extern void *workerloop(void *arg);
 
+/*
+     @EFFECTS: Trova un client nella lista degli utenti attivi
+*/
 extern worker *find_user(char *name);
 
+/*
+     @EFFECTS: Stampa le informazioni correnti del server
+*/
 extern int close_client(worker *client_worker);
 
 

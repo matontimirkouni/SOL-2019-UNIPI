@@ -3,6 +3,7 @@
 #include <sys/poll.h>
 #include <pthread.h> 
 
+//Overview: ObjectStore
 
 typedef struct server_info {
     volatile sig_atomic_t connected_clients;

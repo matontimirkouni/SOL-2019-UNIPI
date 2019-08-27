@@ -13,14 +13,31 @@
 #define TIMEOUT_SEC 50
 #define OK "OK \n"
 
+//Overview: Modulo di supporto
 
-
+/*
+     @REQUIRES: fdc != null && buf != null && size != null
+     @EFFECTS: Readn standard
+*/
 extern int read_store_retrieve(long fdc, void *buf, size_t size);
 
+/*
+     @REQUIRES: fdc != null && buf != null && size != null
+     @EFFECTS: Readn modificata per terminare la lettura al carattere '\n'
+*/
 extern int readn(long fd, void *buf, size_t size);
 
+
+/*
+     @REQUIRES: fdc != null && buf != null && size != null
+     @EFFECTS: writen standard
+*/
 extern int writen(long fd, void *buf, size_t size);
 
+/*
+     @REQUIRES: msg != null 
+     @EFFECTS: Stampa gli errori lato client
+*/
 extern void print_error(char *msg);
 
 
