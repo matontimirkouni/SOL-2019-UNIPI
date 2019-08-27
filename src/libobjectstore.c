@@ -31,6 +31,10 @@ int os_connect(char *name)
         return 0;
     }
     
+    if(strlen(name) > MAX_NAME_LENGHT)
+        print_error("Name is too long");
+        return 0;
+    
     //sockaddr_un per binding
     struct sockaddr_un sa;
     sprintf(sa.sun_path,"%s",SOCKNAME); // il pathname del socket.
@@ -201,7 +205,9 @@ void *os_retrieve(char *name)
         data = (char *) malloc(sizeof(char) * (file_size+1));
         
         size_t letti = rd-(4+ strlen(header)+strlen(size));
-        size_t leg= file_size-letti;
+        size_t da_leg= file_size-letti;
+        
+        /* devo leggere ancora tutti i byte del file*/
         if(letti == 0)
         {
             if (read_store_retrieve(fd_skt,data,file_size)== -1)
@@ -213,19 +219,23 @@ void *os_retrieve(char *name)
         }
         else
         {
-            if (leg > 0)
+            /* parte dei byte letti nella precedente read, devo leggerne ancora
+            'da_leg' */
+            if (da_leg > 0)
             {
-                char *data2 = (char *) malloc(sizeof(char) * (leg+1));
-                if (read_store_retrieve(fd_skt,data2,leg)== -1)
+                char *data2 = (char *) malloc(sizeof(char) * (da_leg+1));
+                if (read_store_retrieve(fd_skt,data2,da_leg)== -1)
                     {
                         print_error(NULL);
                         return 0;
                     }
+                /* unisco le parti lette */
                 memcpy(data, last, sizeof(char) * letti);
-                memcpy((char *)data+(sizeof(char) * letti), data2, sizeof(char) * leg);
+                memcpy((char *)data+(sizeof(char) * letti), data2, sizeof(char) * da_leg);
                 free(data2);
                 
             }
+            /* tutto il blocco dati letto nella prima read*/
             else
             {
                 memcpy(data, last, sizeof(char) * letti);

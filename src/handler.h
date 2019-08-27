@@ -1,10 +1,9 @@
 #ifndef HANDLER_H
 #define HANDLER_H
 #include "worker.h"
-
-
 #define OK "OK \n"
 #define KO "KO"
+
 //Overview: Supporto per la gestione delle operazioni affidate ad un thread worker
 
 

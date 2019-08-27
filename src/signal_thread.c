@@ -21,7 +21,6 @@ sigset_t set; int sig;
 void *loop_signal()
 {
     fprintf (stdout,SERVER_NAME " #%d: ## signal thread partito ##\n",getpid());
-   
     /* costruisco la maschera */
     sigemptyset(&set);
     sigaddset(&set, SIGINT);
@@ -30,20 +29,18 @@ void *loop_signal()
 
     /* blocco */
     sigprocmask(SIG_BLOCK, &set, NULL);
-    char msg[BUFF_SIZE];
+  
     while(server->is_running)
     {
         sigwait(&set,&sig);
         if (sig == 2) //SIGINT
         {   
-            sprintf(msg,SERVER_NAME" #%d: ## SIGINT ricevuto  ##\n",getpid());
-            write(STDOUT_FILENO, msg, BUFF_SIZE);
+            fprintf(stdout,SERVER_NAME" #%d: ## SIGINT ricevuto  ##\n",getpid());
             server->is_running=0;
         }
         else if (sig == 15) //SIGTERM
         {
-            sprintf(msg,SERVER_NAME" #%d: ## SIGTERM ricevuto  ##\n",getpid());
-            write(STDOUT_FILENO, msg, BUFF_SIZE);
+            fprintf(stdout,SERVER_NAME" #%d: ## SIGTERM ricevuto  ##\n",getpid());
             server->is_running=0;
         }
         else if (sig == 10) // SIGUSR1
@@ -55,8 +52,7 @@ void *loop_signal()
         }
         else
         {
-            sprintf(msg,SERVER_NAME" #%d: ## Altro segnale ricevuto ##\n",getpid());
-            write(STDOUT_FILENO, msg, BUFF_SIZE);
+            fprintf(stdout,SERVER_NAME" #%d: ## Altro segnale ricevuto  ##\n",getpid());
             server->is_running=0;
         }
         

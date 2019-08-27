@@ -14,7 +14,6 @@
 #include <fcntl.h> // for open
 #include <sys/stat.h>
 
-
 #define N_DATI 20
 #define TEST_STRING "Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura\
 ché la diritta via era smarrita"

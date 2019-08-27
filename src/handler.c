@@ -58,6 +58,7 @@ int handle_user_msg(char *msg,int bytes, worker *worker_client)
 	
 	else if (strcmp(header, "STORE") == 0)
 	{
+	    /* byte gia letti nella read precedente*/
 	    bytes -=  (5+strlen(header)+strlen(name)+strlen(size));
 	    return handle_store(name,size,worker_client,lst,bytes);
 	}
@@ -145,9 +146,10 @@ int handle_store(char *name,char *size,worker *worker_client,char *lst,size_t by
         
     }
 
-
-    if (strlen(lst) == 0)
+     /* devo leggere ancora tutti i byte del file */
+    if (bytes == 0)
     {
+        
         /* readn modificata*/
         if(read_store_retrieve(worker_client->fd_worker, buffer_read, file_size) == -1)
         {
@@ -169,7 +171,8 @@ int handle_store(char *name,char *size,worker *worker_client,char *lst,size_t by
     }
     else
     {
-        /* byte da leggere rimasti come dimensione passata - byte letti da read*/    
+        
+       /* byte da leggere rimasti:  dimensione passata - byte letti da read*/    
         size_t leg= file_size-bytes;
         /* readn modificata*/
         if(read_store_retrieve(worker_client->fd_worker, buffer_read, leg) == -1)

@@ -5,7 +5,7 @@
 
 
 typedef struct server_info {
-     volatile sig_atomic_t connected_clients;
+    volatile sig_atomic_t connected_clients;
     long double store_size;
     int n_object;
     struct sockaddr_un sa; //socket
