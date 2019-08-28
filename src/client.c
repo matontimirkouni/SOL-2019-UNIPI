@@ -44,9 +44,14 @@ void prep_data()
         data[i]=malloc(size*sizeof(char) +1);
         memset(data[i], '\0', size);
         
+        size_t sk=0;
         //creazione stringa in serie
         for(size_t j = 0; j < size/block_size; j++)
-            sprintf(data[i],"%s%s",data[i],TEST_STRING);
+           {
+                memcpy(data[i] + sk, TEST_STRING, block_size);
+                sk = sk + block_size;
+           }
+           
         data[i][size] = '\0';
 		
     }
