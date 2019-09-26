@@ -15,14 +15,12 @@
 #include "server.h"
 
 
-sigset_t set; int sig;
-
 
 void *loop_signal()
 {
     fprintf (stdout,SERVER_NAME " #%d: ## signal thread partito ##\n",getpid());
     /* costruisco la maschera */
-    sigemptyset(&set);
+    sigset_t set; int sig;
     sigaddset(&set, SIGINT);
 	sigaddset(&set, SIGTERM);
 	sigaddset(&set, SIGUSR1);
@@ -52,7 +50,7 @@ void *loop_signal()
         }
         else
         {
-            fprintf(stdout,SERVER_NAME" #%d: ## Altro segnale ricevuto  ##\n",getpid());
+            fprintf(stdout,SERVER_NAME" #%d: ## Altro ##\n",getpid());
             server->is_running=0;
         }
         

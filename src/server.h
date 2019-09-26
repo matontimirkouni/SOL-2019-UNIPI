@@ -6,7 +6,7 @@
 //Overview: ObjectStore
 
 typedef struct server_info {
-    volatile sig_atomic_t connected_clients;
+    volatile _Atomic connected_clients;
     long double store_size;
     int n_object;
     struct sockaddr_un sa; //socket
@@ -14,6 +14,7 @@ typedef struct server_info {
     volatile sig_atomic_t is_running;
     pthread_t signal_thread;
 }server_info;
+
 
 
 server_info *server;

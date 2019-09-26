@@ -70,9 +70,10 @@ void *workerloop(void *args)
     struct pollfd pfd;
     pfd.fd = fd_c;
     pfd.events =POLLIN;
-
+    
     while (server->is_running && selectedworker->online) 
     {
+        fprintf (stdout,SERVER_NAME " #%d: server \n",server->is_running);
         memset (buf,0,sizeof(buf));
        
         if(poll(&pfd, 1, 10) >= 1) {
@@ -94,7 +95,7 @@ void *workerloop(void *args)
     }
     //stampa operazione
     fprintf (stdout,SERVER_NAME " #%d: ## Client %s con fd:%d thread in chiusura ##\n",
-    getpid(),selectedworker->name,selectedworker->fd_worker);
+    server->is_running ,selectedworker->name,selectedworker->fd_worker);
     
     close(fd_c);
     close_client(selectedworker);

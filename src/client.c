@@ -92,8 +92,7 @@ void test_2()
       
         if((file_block=os_retrieve(name_file)) != NULL && data[i]!= NULL)
             {
-                file_block[strlen(data[i])] = '\0';
-                if(strcmp(data[i],file_block)==0)
+                if(memcmp(data[i],file_block,strlen(data[i]))==0)
                     op_ok++;
                 else
                     op_ko++;
